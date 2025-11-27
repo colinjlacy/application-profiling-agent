@@ -17,6 +17,7 @@ typedef __u32 __be32;
 typedef __u64 __be64;
 typedef unsigned int __wsum;
 
+#include <linux/bpf.h>
 #include <bpf/bpf_helpers.h>
 #include <bpf/bpf_tracing.h>  // PT_REGS_PARM* macros
 
