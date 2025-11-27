@@ -1,8 +1,8 @@
 // agent/bpf/pqexec.bpf.c
 
-#include <uapi/linux/ptrace.h>
 #include <linux/types.h>
 #include <bpf/bpf_helpers.h>
+#include <bpf/bpf_tracing.h>  // provides PT_REGS_PARM* macros
 
 struct event {
     __u64 pid;

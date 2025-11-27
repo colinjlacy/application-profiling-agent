@@ -33,7 +33,7 @@ jobs:
           set -e
           SRC="agent/bpf/pqexec.bpf.c"
           OUT="agent/bpf/pqexec.bpf.o"
-
+          
           echo "Compiling $SRC -> $OUT"
           clang -O2 -g -target bpf \
             -c "$SRC" \
