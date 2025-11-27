@@ -1,11 +1,10 @@
 // agent/bpf/pqexec.bpf.c
 
-#include <linux/types.h>
 #include <bpf/bpf_helpers.h>
-#include <bpf/bpf_tracing.h>  // provides PT_REGS_PARM* macros
+#include <bpf/bpf_tracing.h>  // PT_REGS_PARM* macros
 
 struct event {
-    __u64 pid;
+    unsigned long long pid;  // avoid __u64 to skip linux/types.h
     char sql[256];
 };
 
