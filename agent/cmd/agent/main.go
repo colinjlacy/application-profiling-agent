@@ -36,10 +36,11 @@ func main() {
 	}
 	log.Printf("[agent] found target PID = %d", pid)
 
-	exePath := fmt.Sprintf("/proc/%d/exe", pid)
-	ex, err := link.OpenExecutable(exePath)
+	libpqPath := fmt.Sprintf("/proc/%d/root/usr/lib/aarch64-linux-gnu/libpq.so.5", pid)
+
+	ex, err := link.OpenExecutable(libpqPath)
 	if err != nil {
-		log.Fatalf("OpenExecutable(%s): %v", exePath, err)
+		log.Fatalf("OpenExecutable(%s): %v", libpqPath, err)
 	}
 
 	// Load precompiled BPF object
@@ -60,9 +61,11 @@ func main() {
 	defer objs.Events.Close()
 
 	// Attach uprobe to PQexec symbol in the executable (PLT stub)
-	up, err := ex.Uprobe("PQexec", objs.TracePqexec, nil)
+	up, err := ex.Uprobe("PQexec", objs.TracePqexec, &link.UprobeOptions{
+		PID: pid,
+	})
 	if err != nil {
-		log.Fatalf("Uprobe(PQexec): %v", err)
+		log.Fatalf("Uprobe(PQexec @ %s, pid=%d): %v", libpqPath, pid, err)
 	}
 	defer up.Close()
 

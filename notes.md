@@ -51,6 +51,11 @@ cd ..
 
 e9760072d6f3
 
-docker run -d --name go-testapp \
---network demo-net \
-e9760072d6f3
+docker run --rm --name libpq-agent \
+--privileged \
+--pid=host \
+-v /proc:/proc:ro \
+-v "$(pwd)/out:/output" \
+-e TARGET_PATTERN=testapp \
+-e OUTPUT_FILE=/output/pqexec.log \
+libpq-ebpf-agent-go:latest

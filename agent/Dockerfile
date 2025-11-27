@@ -4,6 +4,7 @@ FROM golang:1.22-bullseye AS build
 WORKDIR /agent
 
 COPY go.mod ./
+COPY go.sum ./
 RUN go mod download
 
 COPY . .
