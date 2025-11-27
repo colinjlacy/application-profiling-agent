@@ -1,4 +1,4 @@
-module github.com/colinjlacy/appliaction-profiling-agent
+module github.com/colinjlacy/application-profiling-agent
 
 go 1.25.1
 

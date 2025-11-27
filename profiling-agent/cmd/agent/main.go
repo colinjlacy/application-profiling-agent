@@ -18,9 +18,9 @@ import (
 	"github.com/cilium/ebpf/ringbuf"
 	"gopkg.in/yaml.v3"
 
-	"github.com/colinjlacy/appliaction-profiling-agent/internal/hooks"
-	"github.com/colinjlacy/appliaction-profiling-agent/internal/model"
-	"github.com/colinjlacy/appliaction-profiling-agent/internal/proc"
+	"github.com/colinjlacy/application-profiling-agent/internal/hooks"
+	"github.com/colinjlacy/application-profiling-agent/internal/model"
+	"github.com/colinjlacy/application-profiling-agent/internal/proc"
 )
 
 type appState struct {
