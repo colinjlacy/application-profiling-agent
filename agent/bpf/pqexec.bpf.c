@@ -22,6 +22,33 @@ typedef unsigned int __wsum;
 // We define it here to avoid including linux/bpf.h which has arch-specific dependencies
 #define BPF_MAP_TYPE_RINGBUF 27
 
+// For x86_64, manually define struct pt_regs layout (simplified for uprobe parameter access)
+#ifndef __aarch64__
+struct pt_regs {
+    unsigned long r15;
+    unsigned long r14;
+    unsigned long r13;
+    unsigned long r12;
+    unsigned long bp;
+    unsigned long bx;
+    unsigned long r11;
+    unsigned long r10;
+    unsigned long r9;
+    unsigned long r8;
+    unsigned long ax;
+    unsigned long cx;
+    unsigned long dx;
+    unsigned long si;
+    unsigned long di;
+    unsigned long orig_ax;
+    unsigned long ip;
+    unsigned long cs;
+    unsigned long flags;
+    unsigned long sp;
+    unsigned long ss;
+};
+#endif
+
 #include <bpf/bpf_helpers.h>
 #include <bpf/bpf_tracing.h>  // PT_REGS_PARM* macros
 
