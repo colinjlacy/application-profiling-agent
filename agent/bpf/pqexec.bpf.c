@@ -1,7 +1,8 @@
 // agent/bpf/pqexec.bpf.c
 
 // Define target architecture for PT_REGS macros
-#define __TARGET_ARCH_arm64
+// Use x86 for GitHub Actions (Ubuntu), change to arm64 for local Mac builds
+#define __TARGET_ARCH_x86
 
 // Minimal kernel-style typedefs so bpf_helper_defs.h is happy.
 typedef unsigned char __u8;
@@ -17,7 +18,10 @@ typedef __u32 __be32;
 typedef __u64 __be64;
 typedef unsigned int __wsum;
 
-#include <linux/bpf.h>
+// Define BPF_MAP_TYPE_RINGBUF constant (from linux/bpf.h)
+// We define it here to avoid including linux/bpf.h which has arch-specific dependencies
+#define BPF_MAP_TYPE_RINGBUF 27
+
 #include <bpf/bpf_helpers.h>
 #include <bpf/bpf_tracing.h>  // PT_REGS_PARM* macros
 
