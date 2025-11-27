@@ -1,10 +1,16 @@
 // agent/bpf/pqexec.bpf.c
 
+// Minimal kernel-style typedefs so bpf_helper_defs.h is happy.
+typedef unsigned char __u8;
+typedef unsigned short __u16;
+typedef unsigned int __u32;
+typedef unsigned long long __u64;
+
 #include <bpf/bpf_helpers.h>
 #include <bpf/bpf_tracing.h>  // PT_REGS_PARM* macros
 
 struct event {
-    unsigned long long pid;  // avoid __u64 to skip linux/types.h
+    __u64 pid;
     char sql[256];
 };
 
